@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-                    <tr v-for="post in posts"> 
+                    <tr v-for="post in posts">
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.id }}
                         </td>
@@ -34,15 +34,25 @@
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.created_at }}
                         </td>
-                        
-                    </tr> 
+
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
+import { onMounted } from "vue";
+import usePosts from "@/composables/posts";
+
+const { posts, getPosts } = usePosts()
+onMounted(() => {
+    getPosts()
+})
+</script>
+
+<!-- <script>
 export default {
     data() {
         return {
@@ -63,4 +73,4 @@ export default {
     }
 }
 
-</script>
+</script> -->
