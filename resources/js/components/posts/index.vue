@@ -47,5 +47,29 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
     </div>
-</div></template>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            posts: []
+        }
+    },
+
+    mounted() {
+        this.fetchPosts()
+    },
+
+    methods: {
+        fetchPosts() {
+            axios.get('api/posts')
+                .then(res => this.posts = res.data)
+                .catch(error => console.log(error))
+        }
+    }
+}
+
+</script>
