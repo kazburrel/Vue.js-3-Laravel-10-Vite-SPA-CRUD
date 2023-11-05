@@ -38,6 +38,7 @@
                     </tr>
                 </tbody>
             </table>
+            <TailwindPagination :data="posts" @pagination-change-page="getPosts" class="mt-4" />
         </div>
     </div>
 </template>
@@ -45,6 +46,7 @@
 <script setup>
 import { onMounted } from "vue";
 import usePosts from "@/composables/posts";
+import { TailwindPagination } from 'laravel-vue-pagination';
 
 const { posts, getPosts } = usePosts()
 onMounted(() => {
