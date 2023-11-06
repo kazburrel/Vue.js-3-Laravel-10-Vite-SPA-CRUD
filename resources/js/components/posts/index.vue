@@ -10,6 +10,11 @@
                         <th class="px-6 py-3 bg-gray-50 text-left">
                             <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Title</span>
                         </th>
+
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <span
+                                class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Category</span>
+                        </th>
                         <th class="px-6 py-3 bg-gray-50 text-left">
                             <span
                                 class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Content</span>
@@ -27,6 +32,9 @@
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.title }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                            {{ post.category }}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.content }}
