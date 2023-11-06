@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,7 @@ class PostFactory extends Factory
             'id' => Str::uuid(),
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,  
+            'category_id' => Category::inRandomOrder()->first()->id, 
         ];
     }
 }

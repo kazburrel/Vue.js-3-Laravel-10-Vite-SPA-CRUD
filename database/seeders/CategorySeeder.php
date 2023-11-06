@@ -2,22 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PostSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Post::factory(5)->create();
+        Category::factory(7)->create(); // Create 10 categories
     }
-
-    // public function run()
-    // {
-    //     factory(App\Contact::class, 10)->create();
-    // }
 }
