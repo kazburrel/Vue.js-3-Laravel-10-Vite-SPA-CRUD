@@ -1,5 +1,6 @@
-import { Ref, ref } from "vue";
-export default function useCategories(params) {
+import { ref } from "vue";
+
+export default function useCategories() {
     const categories = ref({});
 
     const getCategories = async () => {
@@ -7,5 +8,6 @@ export default function useCategories(params) {
             categories.value = response.data.data;
         });
     };
+
     return { categories, getCategories };
 }
