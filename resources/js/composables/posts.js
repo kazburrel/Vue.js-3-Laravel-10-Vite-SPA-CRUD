@@ -2,11 +2,13 @@ import { ref } from "vue";
 
 export default function usePosts() {
     const posts = ref({});
-    const getPosts = async (page =1) => {
-        axios.get("/api/posts?page="+ page).then((response) => {
-            // posts.value = response.data.data;
-            posts.value = response.data;
-        });
+    const getPosts = async (page = 1, category = "") => {
+        axios
+            .get("/api/posts?page=" + page + "&category=" + category)
+            .then((response) => {
+                // posts.value = response.data.data;
+                posts.value = response.data;
+            });
     };
-    return { posts, getPosts } 
+    return { posts, getPosts };
 }
