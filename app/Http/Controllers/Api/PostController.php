@@ -14,10 +14,21 @@ class PostController extends Controller
     public function index()
     {
         // return Post::all();
+        $orderColumn = request('order_column', 'created_at');
+        if (!in_array($orderColumn, ['id', 'title', 'created_at'])) {
+            $orderColumn = 'created_at';
+        }
+        $orderDirection = request('order_direction', 'desc');
+        if (!in_array($orderDirection, ['asc', 'desc'])) {
+            $orderDirection = 'desc';
+        }
+
         $posts = Post::with('category')
             ->when(request('category'), function (Builder $query) {
                 $query->where('category_id', request('category'));
-            })->paginate(5);
+            })
+            ->orderBy($orderColumn, $orderDirection)
+            ->paginate(5);
 
         return PostResource::collection($posts);
     }
