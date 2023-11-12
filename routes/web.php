@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/', 'dashboard')->name('dashboard'); 
+Route::view('/{any?}', 'dashboard') 
+    ->where('any', '.*'); 
 
 // Route::get('/', function () {
 //     return view('welcome');
