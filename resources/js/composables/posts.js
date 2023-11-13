@@ -1,7 +1,31 @@
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default function usePosts() {
     const posts = ref({});
+    const router = useRouter();
+    const validationErrors = ref({});
+    const isLoading = ref(false);
+
+    const storePost = async (post) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true;
+        validationErrors.value = {};
+        axios
+            .post("/api/posts", post)
+            .then((response) => {
+                router.push({ name: "posts.index" });
+            })
+            .catch((error) => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors;
+                    isLoading.value = false 
+                }
+            });
+        // console.log(post);
+    };
+
     const getPosts = async (
         page = 1,
         category = "",
@@ -20,9 +44,8 @@ export default function usePosts() {
                     order_direction
             )
             .then((response) => {
-                // posts.value = response.data.data;
                 posts.value = response.data;
             });
     };
-    return { posts, getPosts };
+    return { posts, getPosts, storePost, validationErrors, isLoading };
 }
