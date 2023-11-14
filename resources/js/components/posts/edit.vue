@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="updatePost(post)"> 
+    <form @submit.prevent="updatePost(post)" enctype="multipart/form-data"> 
         <!-- Title -->
         <div>
             <label for="post-title" class="block text-sm font-medium text-gray-700">
@@ -77,13 +77,10 @@ import { onMounted, reactive } from 'vue';
 import { useRoute } from "vue-router"; 
 import useCategories from '@/composables/categories';
 import usePosts from '@/composables/posts';
+const data = reactive({
+    thumbnail: ''
+})
 
-// const post = reactive({
-//     title: '',
-//     content: '',
-//     category_id: '',
-//     thumbnail: ''
-// })
 
 const { categories, getCategories } = useCategories()
 const { post, getPost, updatePost, validationErrors, isLoading } = usePosts() 

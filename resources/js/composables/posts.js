@@ -46,9 +46,13 @@ export default function usePosts() {
 
         isLoading.value = true;
         validationErrors.value = {};
-
+        let serializedPostUpdate = new FormData();
+        const formData = new FormData();
+        formData.append("thumbnail", this.thumbnail);
+        
+        console.log(post);
         axios
-            .put("/api/posts/" + post.id, post)
+            .put("/api/posts/" + post.id, serializedPostUpdate)
             .then((response) => {
                 router.push({ name: "posts.index" });
             })
