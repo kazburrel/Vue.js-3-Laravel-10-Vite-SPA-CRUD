@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\StorePostUpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,12 +37,14 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        
         if ($request->hasFile('thumbnail')) {
             $filename = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
             info($filename);
         }
-        // dd($filename);
-        $post = Post::create($request->validated());
+        $post = Post::create($request->safe()->merge([
+            'thumbnail' => $filename,
+        ])->all());
 
         return new PostResource($post);
     }
@@ -51,9 +54,14 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    public function update(Post $post, StorePostRequest $request)
+    public function update(Post $post, StorePostUpdateRequest $request)
     {
-        $post->update($request->validated());
+        // dd($post->thumbnail);
+        $file = $request->hasFile('thumbnail') ? $request->file('thumbnail')->store('PostThumnails', 'public') : $post->thumbnail;
+        // dd($request->all());
+        $post->update($request->safe()->merge([
+            'thumbnail' => $file,
+        ])->all());
 
         return new PostResource($post);
     }
