@@ -74,20 +74,24 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
+import { useRoute } from "vue-router"; 
 import useCategories from '@/composables/categories';
 import usePosts from '@/composables/posts';
 
-const post = reactive({
-    title: '',
-    content: '',
-    category_id: '',
-    thumbnail: ''
-})
+// const post = reactive({
+//     title: '',
+//     content: '',
+//     category_id: '',
+//     thumbnail: ''
+// })
 
 const { categories, getCategories } = useCategories()
-const { storePost, validationErrors, isLoading } = usePosts()
+const { post, getPost, updatePost, validationErrors, isLoading } = usePosts() 
+const route = useRoute() 
+// const { storePost, validationErrors, isLoading } = usePosts()
 
 onMounted(() => {
+    getPost(route.params.id) 
     getCategories()
 })
 </script>

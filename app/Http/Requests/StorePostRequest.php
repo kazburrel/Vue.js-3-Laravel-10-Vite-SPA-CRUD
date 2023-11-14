@@ -18,6 +18,7 @@ class StorePostRequest extends FormRequest
             'content' => ['required'],
             'category_id' => ['required',  'exists:categories,id'],
             'thumbnail' => 'required'
+
         ];
     }
 
