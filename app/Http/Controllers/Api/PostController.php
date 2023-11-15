@@ -70,7 +70,7 @@ class PostController extends Controller
 
     public function update(Post $post, StorePostUpdateRequest $request)
     {
-        dd($request->thumbnail);    
+        dd($request->all());    
         if ($request->hasFile('thumbnail')) {
             dd('hi');
             $file = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();

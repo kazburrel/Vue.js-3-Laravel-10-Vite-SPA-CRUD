@@ -46,13 +46,19 @@ export default function usePosts() {
 
         isLoading.value = true;
         validationErrors.value = {};
-        let serializedPostUpdate = new FormData();
-        const formData = new FormData();
-        formData.append("thumbnail", this.thumbnail);
-        
-        console.log(post);
+        // const formData = new FormData();
+        // formData.append("title", post.title);
+        // formData.append("content", post.content);
+        // formData.append("category_id", post.category_id);
+        // formData.append("thumbnail", post.thumbnail);
+
+        console.log(post.thumbnail);
+        // if (post.thumbnail.length > 0) {
+        //     // formData.append('thumbnail', post.thumbnail);
+        // }
+
         axios
-            .put("/api/posts/" + post.id, serializedPostUpdate)
+            .put("/api/posts/" + post.id, post)
             .then((response) => {
                 router.push({ name: "posts.index" });
             })
