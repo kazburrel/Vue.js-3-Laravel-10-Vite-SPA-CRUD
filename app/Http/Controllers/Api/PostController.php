@@ -38,10 +38,10 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        dd($request->thumbnail); 
+        dd($request->all()); 
         if ($request->hasFile('thumbnail')) {
             $filename = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
-            info($filename);
+            // info($filename);
         }
         $post = Post::create($request->safe()->merge([
             'thumbnail' => $filename,
@@ -56,10 +56,10 @@ class PostController extends Controller
         // if (!$post) {
         //     return response()->json(['error' => 'Post not found'], 404);
         // }
-        // return response()->json([
+        // return $post =  response()->json([
         //     'id' => $post->id,
         //     'title' => $post->title,
-        //     'content' => substr($post->content, 0, 50) . '...',
+        //     'content' => substr($post->content, 0, 50) ,
         //     'category_id' => $post->category_id, 
         //     'category' => $post->category->name, 
         //     'thumbnail' => $post->thumbnail, 
@@ -70,14 +70,15 @@ class PostController extends Controller
 
     public function update(Post $post, StorePostUpdateRequest $request)
     {
-        dd($request->all());    
-        if ($request->hasFile('thumbnail')) {
-            dd('hi');
-            $file = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
-            $post->update($request->safe()->merge([
-                'thumbnail' => $file
-            ])->all());
-            return new PostResource($post);
-        }
+        dd($request->all()); 
+
+        // if ($request->hasFile('thumbnail')) {
+        //     dd('hi');
+        //     $file = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
+        //     $post->update($request->safe()->merge([
+        //         'thumbnail' => $file
+        //     ])->all());
+        //     return new PostResource($post);
+        // }
     }
 }

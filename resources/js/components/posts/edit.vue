@@ -77,10 +77,14 @@ import { onMounted, reactive } from 'vue';
 import { useRoute } from "vue-router"; 
 import useCategories from '@/composables/categories';
 import usePosts from '@/composables/posts';
-const data = reactive({
-    thumbnail: ''
-})
 
+const data = reactive({
+    title: '',
+    content: '',
+    category_id: '',
+    thumbnail: '' 
+})
+// console.log(data)
 
 const { categories, getCategories } = useCategories()
 const { post, getPost, updatePost, validationErrors, isLoading } = usePosts() 

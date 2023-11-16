@@ -25,7 +25,7 @@ class StorePostUpdateRequest extends FormRequest
             'title' => ['required'],
             'content' => ['required'],
             'category_id' => ['required',  'exists:categories,id'],
-            'thumbnail' => 'nullable'
+            'thumbnail' => 'required'
 
         ];
     }

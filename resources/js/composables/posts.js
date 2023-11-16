@@ -11,7 +11,7 @@ export default function usePosts() {
     const getPost = async (id) => {
         axios.get("/api/posts/" + id).then((response) => {
             post.value = response.data.data;
-            console.log(response.data.data);
+            // console.log(response.data.data);
         });
     };
 
@@ -26,6 +26,7 @@ export default function usePosts() {
                 serializedPost.append(item, post[item]);
             }
         }
+        console.log(serializedPost);
 
         axios
             .post("/api/posts", serializedPost)
@@ -42,23 +43,25 @@ export default function usePosts() {
     };
 
     const updatePost = async (post) => {
+        
         if (isLoading.value) return;
-
         isLoading.value = true;
         validationErrors.value = {};
-        // const formData = new FormData();
-        // formData.append("title", post.title);
-        // formData.append("content", post.content);
-        // formData.append("category_id", post.category_id);
-        // formData.append("thumbnail", post.thumbnail);
-
-        console.log(post.thumbnail);
-        // if (post.thumbnail.length > 0) {
-        //     // formData.append('thumbnail', post.thumbnail);
+        let serializedPost = new FormData();
+        for (let item in post) {
+            if (post.hasOwnProperty(item)) {
+                serializedPost.append(item, post[item]);
+            }
+        }
+        // const postItem = {
+        //     title: post.title,
+        //     content: post.content,
+        //     category_id: post.category_id,
+        //     thumbnail: "2025-11-14 11:21:55_655358532fcca.Screenshot 2023-11-01 at 1.13.53 PM.png"
         // }
-
+        console.log(post);
         axios
-            .put("/api/posts/" + post.id, post)
+            .patch(`/api/posts/${post.id}`, serializedPost)
             .then((response) => {
                 router.push({ name: "posts.index" });
             })
