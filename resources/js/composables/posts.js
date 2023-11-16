@@ -43,25 +43,18 @@ export default function usePosts() {
     };
 
     const updatePost = async (post) => {
-        
         if (isLoading.value) return;
         isLoading.value = true;
         validationErrors.value = {};
-        let serializedPost = new FormData();
-        for (let item in post) {
-            if (post.hasOwnProperty(item)) {
-                serializedPost.append(item, post[item]);
-            }
-        }
-        // const postItem = {
-        //     title: post.title,
-        //     content: post.content,
-        //     category_id: post.category_id,
-        //     thumbnail: "2025-11-14 11:21:55_655358532fcca.Screenshot 2023-11-01 at 1.13.53 PM.png"
-        // }
+        let data = new FormData();
+        data.append("thumbnail", post.thumbnail);
+        data.append("title", post.title);
+        data.append("content", post.content);
+        data.append("category_id", post.category_id);
+        data.append("_method", "PUT");
         console.log(post);
         axios
-            .patch(`/api/posts/${post.id}`, serializedPost)
+            .post(`/api/posts/${post.id}`, data)
             .then((response) => {
                 router.push({ name: "posts.index" });
             })

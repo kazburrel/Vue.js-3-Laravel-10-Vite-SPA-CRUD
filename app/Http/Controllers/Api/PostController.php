@@ -38,7 +38,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        dd($request->all()); 
+        // dd($request->all()); 
         if ($request->hasFile('thumbnail')) {
             $filename = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
             // info($filename);
@@ -52,33 +52,16 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        // dd($post);
-        // if (!$post) {
-        //     return response()->json(['error' => 'Post not found'], 404);
-        // }
-        // return $post =  response()->json([
-        //     'id' => $post->id,
-        //     'title' => $post->title,
-        //     'content' => substr($post->content, 0, 50) ,
-        //     'category_id' => $post->category_id, 
-        //     'category' => $post->category->name, 
-        //     'thumbnail' => $post->thumbnail, 
-        //     'created_at' => $post->created_at->toDateString()
-        // ]);
         return new PostUpdateResource($post);
     }
 
     public function update(Post $post, StorePostUpdateRequest $request)
     {
-        dd($request->all()); 
 
-        // if ($request->hasFile('thumbnail')) {
-        //     dd('hi');
-        //     $file = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
-        //     $post->update($request->safe()->merge([
-        //         'thumbnail' => $file
-        //     ])->all());
-        //     return new PostResource($post);
-        // }
+        $file =  $request->hasFile('thumbnail') ? $request->file('thumbnail')->store('Thumbnails', 'public') : $post->thumbnail;
+        $post->update($request->safe()->merge([
+            'thumbnail' => $file
+        ])->all());
+        return new PostResource($post);
     }
 }
