@@ -1,31 +1,56 @@
-import { createRouter, createWebHistory } from 'vue-router';
- 
-import PostsIndex from '@/components/Posts/Index.vue'
-import PostsCreate from '@/components/Posts/Create.vue'
-import PostsEdit from '@/components/Posts/Edit.vue' 
- 
+import { createRouter, createWebHistory } from "vue-router";
+
+import AuthenticatedLayout from "@/layouts/Authenticated.vue";
+import GuestLayout from "@/layouts/Guest.vue";
+
+import PostsIndex from "@/components/posts/Index.vue";
+import PostsCreate from "@/components/posts/Create.vue";
+import PostsEdit from "@/components/posts/Edit.vue";
+import Login from "@/components/auth/Login.vue";
+import Register from "@/components/auth/Register.vue";
+
 const routes = [
     {
-        path: '/',
-        name: 'posts.index',
-        meta: { title: 'Posts' } ,
-        component: PostsIndex
+        component: GuestLayout,
+        children: [
+            {
+                path: "/login",
+                name: "login",
+                component: Login,
+            },
+            {
+                path: "/register",
+                name: "register",
+                component: Register,
+            },
+        ],
     },
     {
-        path: '/posts/create',
-        name: 'posts.create',
-        meta: { title: 'Add new post' } ,
-        component: PostsCreate
+        component: AuthenticatedLayout,
+        children: [
+            {
+                path: "/posts",
+                name: "posts.index",
+                component: PostsIndex,
+                meta: { title: "Posts" },
+            },
+            {
+                path: "/posts/create",
+                name: "posts.create",
+                component: PostsCreate,
+                meta: { title: "Add new post" },
+            },
+            {
+                path: "/posts/edit/:id",
+                name: "posts.edit",
+                component: PostsEdit,
+                meta: { title: "Edit post" },
+            },
+        ],
     },
-    { 
-        path: '/posts/edit/:id',
-        name: 'posts.edit',
-        component: PostsEdit,
-        meta: { title: 'Edit post' }
-    }, 
-]
- 
+];
+
 export default createRouter({
     history: createWebHistory(),
-    routes
-})
+    routes,
+});
