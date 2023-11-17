@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-// Route::get('posts', [PostController::class, 'index']); 
-// Route::post('login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']); 
-Route::post('register', [AuthController::class, 'store']); 
 
-Route::apiResource('posts', PostController::class); 
-Route::get('categories', [CategoryController::class, 'index']); 
+// Route::apiResource('posts', PostController::class); 
+// Route::get('categories', [CategoryController::class, 'index']); 
 // Route::put('post/{post}', [PostController::class, 'update']); 
+Route::group(['middleware' => 'auth:sanctum'], function() { 
+    Route::apiResource('posts', PostController::class);
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('/user', function (Request $request) { 
+        return $request->user();
+    });
+});
 
 

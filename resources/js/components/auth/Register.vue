@@ -46,10 +46,10 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="mt-4">
             <label for="password" class="block font-medium text-sm text-gray-700">
-               Confirm Password
+                Confirm Password
             </label>
             <input v-model="registerForm.password_confirmation" id="password" type="password"
                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -61,15 +61,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Remember me -->
-        <!-- <div class="block mt-4">
-            <label class="flex items-center">
-                <input type="checkbox" name="remember" v-model="registerForm.remember"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-        </div> -->
 
         <!-- Buttons -->
         <div class="flex items-center justify-end mt-4">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -33,8 +34,19 @@ class AuthController extends Controller
         if ($request->wantsJson()) {
             return response()->json($user);
         }
-        // Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function login(LoginRequest $request): RedirectResponse|JsonResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        if ($request->wantsJson()) {
+            return response()->json($request->user());
+        }
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }
