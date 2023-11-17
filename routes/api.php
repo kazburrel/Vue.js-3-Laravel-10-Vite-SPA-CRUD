@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('posts', PostController::class);
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('/user', function (Request $request) { 
+        // dd($request->user()->name);
         return $request->user();
     });
 });

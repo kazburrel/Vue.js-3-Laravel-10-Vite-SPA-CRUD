@@ -1,6 +1,10 @@
 // import axios from "axios";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+const user = reactive({
+    name: "",
+    email: "",
+});
 
 export default function useAuth() {
     const processing = ref(false);
@@ -11,14 +15,12 @@ export default function useAuth() {
         password: "",
         remember: false,
     });
-
     const registerForm = reactive({
         name: "",
         email: "",
         password: "",
-        // remember: false,
     });
-
+    
     const submitRegister = async () => {
         console.log(registerForm);
         if (processing.value) return;
@@ -56,8 +58,18 @@ export default function useAuth() {
     };
 
     const loginUser = (response) => {
+        user.name = response.data.name;
+        user.email = response.data.email;
+        console.log(user.name);
         localStorage.setItem("loggedIn", JSON.stringify(true));
         router.push({ name: "posts.index" });
+    };
+
+    const getUser = () => {
+        axios.get("/api/user").then((response) => {
+            // console.log(response);
+            loginUser(response);
+        });
     };
 
     return {
@@ -67,5 +79,7 @@ export default function useAuth() {
         submitLogin,
         registerForm,
         submitRegister,
+        user,
+        getUser,
     };
 }
