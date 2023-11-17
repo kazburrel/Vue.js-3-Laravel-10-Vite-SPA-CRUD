@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('login', [AuthController::class, 'login']); 
 Route::post('register', [AuthController::class, 'store']); 
+Route::post('logout', [AuthController::class, 'destroy']); 
 Route::view('/{any?}', 'dashboard') 
     ->where('any', '.*'); 
 
