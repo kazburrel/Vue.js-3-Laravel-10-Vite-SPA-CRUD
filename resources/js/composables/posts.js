@@ -12,7 +12,6 @@ export default function usePosts() {
     const getPost = async (id) => {
         axios.get("/api/posts/" + id).then((response) => {
             post.value = response.data.data;
-            // console.log(response.data.data);
         });
     };
 
@@ -44,7 +43,6 @@ export default function usePosts() {
                     isLoading.value = false;
                 }
             });
-        // console.log(post);
     };
 
     const updatePost = async (post) => {
