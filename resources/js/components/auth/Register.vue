@@ -46,6 +46,21 @@
                 </div>
             </div>
         </div>
+        
+        <div class="mt-4">
+            <label for="password" class="block font-medium text-sm text-gray-700">
+               Confirm Password
+            </label>
+            <input v-model="registerForm.password_confirmation" id="password" type="password"
+                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                required autocomplete="current-password">
+            <!-- Validation Errors -->
+            <div class="text-red-600 mt-1">
+                <div v-for="message in validationErrors?.password_confirmation">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
 
         <!-- Remember me -->
         <!-- <div class="block mt-4">

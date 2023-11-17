@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 // Route::get('posts', [PostController::class, 'index']); 
 // Route::post('login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']); 
-Route::post('register', [RegisteredUserController::class, 'store']); 
+Route::post('register', [AuthController::class, 'store']); 
 
 Route::apiResource('posts', PostController::class); 
 Route::get('categories', [CategoryController::class, 'index']); 

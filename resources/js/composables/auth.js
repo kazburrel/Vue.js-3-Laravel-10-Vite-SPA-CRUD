@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 
@@ -24,16 +24,17 @@ export default function useAuth() {
         if (processing.value) return;
         processing.value = true;
         validationErrors.value = {};
-        axios.post("/register", registerForm)
-        .then((response) => {
-            router.push({ name: "login" });
-        })
-        .catch((error) => {
-            if (error.response?.data) {
-                validationErrors.value = error.response.data.errors;
-                isLoading.value = false;
-            }
-        });
+        axios
+            .post("/api/register", registerForm)
+            .then((response) => {
+                router.push({ name: "login" });
+            })
+            .catch((error) => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors;
+                    isLoading.value = false;
+                }
+            });
     };
 
     const submitLogin = async () => {
