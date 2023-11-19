@@ -55,6 +55,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        $this->authorize('posts.create');
         // dd($request->all()); 
         if ($request->hasFile('thumbnail')) {
             $filename = now() . '_' . uniqid() . '.' . $request->file('thumbnail')->getClientOriginalName();
@@ -74,6 +75,7 @@ class PostController extends Controller
 
     public function update(Post $post, StorePostUpdateRequest $request)
     {
+        $this->authorize('posts.update');
 
         $file =  $request->hasFile('thumbnail') ? $request->file('thumbnail')->store('Thumbnails', 'public') : $post->thumbnail;
         $post->update($request->safe()->merge([
@@ -84,6 +86,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('posts.delete');
         $post->delete();
 
         return response()->noContent();
