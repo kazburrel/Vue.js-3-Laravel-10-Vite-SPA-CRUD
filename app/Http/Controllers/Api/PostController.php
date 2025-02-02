@@ -9,8 +9,8 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostUpdateResource;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
-// use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Egbosionu\LaraHttpEnums\StatusCode;
+
 
 class PostController extends Controller
 {
@@ -89,6 +89,6 @@ class PostController extends Controller
         $this->authorize('posts.delete');
         $post->delete();
 
-        return response()->noContent();
+        return response()->json(null, StatusCode::NO_CONTENT->value);
     }
 }
